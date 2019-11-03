@@ -11,11 +11,7 @@ y=mat["y"]
 def sigmoid(z):
     return 1/ (1 + np.exp(-z))
 
-def lrCostFunction(theta, X, y, Lambda):
-    """
-    Takes in numpy array of theta, X, y, and float lambda to compute the regularized logistic cost function 
-    """
-    
+def lrCostFunction(theta, X, y, Lambda): 
     m=len(y)
     predictions = sigmoid(X @ theta)
     error = (-y * np.log(predictions)) - ((1-y)*np.log(1-predictions))
@@ -37,13 +33,6 @@ print("Cost:",J,"Expected cost: 2.534819")
 print("Gradients:\n",grad,"\nExpected gradients:\n 0.146561\n -0.548558\n 0.724722\n 1.398003")
 
 def gradientDescent(X,y,theta,alpha,num_iters,Lambda):
-    """
-    Take in numpy array X, y and theta and update theta by taking num_iters gradient steps
-    with learning rate of alpha
-    
-    return theta and the list of the cost of theta during each iteration
-    """
-    
     m=len(y)
     J_history =[]
     
@@ -54,17 +43,11 @@ def gradientDescent(X,y,theta,alpha,num_iters,Lambda):
     
     return theta , J_history
 def oneVsAll(X, y, num_labels, Lambda):
-    """
-    Takes in numpy array of X,y, int num_labels and float lambda to train multiple logistic regression classifiers
-    depending on the number of num_labels using gradient descent. 
-    
-    Returns a matrix of theta, where the i-th row corresponds to the classifier for label i
-    """
     m, n = X.shape[0], X.shape[1]
     initial_theta = np.zeros((n+1,1))
     all_theta = []
     all_J=[]
-    # add intercept terms
+  
     
     X = np.hstack((np.ones((m,1)),X))
     
@@ -75,11 +58,6 @@ def oneVsAll(X, y, num_labels, Lambda):
     return np.array(all_theta).reshape(num_labels,n+1), all_J
 
 def predictOneVsAll(all_theta, X):
-    """
-    Using all_theta, compute the probability of X(i) for each class and predict the label
-    
-    return a vector of prediction
-    """
     m= X.shape[0]
     X = np.hstack((np.ones((m,1)),X))
     all_theta = np.asarray(all_theta)  
